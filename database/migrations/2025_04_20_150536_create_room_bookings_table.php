@@ -16,6 +16,8 @@ return new class extends Migration
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->foreignId('room_id')->constrained()->onDelete('cascade');
         $table->date('date');
+        $table->time('waktu_mulai')->nullable();
+        $table->time('waktu_selesai')->nullable();
         $table->string('status')->default('pending'); // pending, approved, rejected, cancelled
         $table->timestamps();
     });

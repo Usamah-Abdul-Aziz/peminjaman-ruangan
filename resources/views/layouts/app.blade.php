@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Styles tambahan -->
+    @stack('styles')
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -22,5 +25,8 @@
             @yield('content') <!-- tempat semua konten dari view -->
         </div>
     </div>
+
+    <!-- Scripts tambahan -->
+    @stack('scripts')
 </body>
 </html>

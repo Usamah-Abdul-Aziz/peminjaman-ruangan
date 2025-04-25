@@ -20,15 +20,24 @@ class RoomBookingController extends Controller
         $request->validate([
             'room_id' => 'required|exists:rooms,id',
             'date' => 'required|date|after_or_equal:today',
+            'waktu_mulai' => 'required|date_format:H:i',
+            'waktu_selesai' => 'required|date_format:H:i|after:waktu_mulai',
         ]);
 
+        // Cek konflik booking
         $exists = RoomBooking::where('room_id', $request->room_id)
             ->where('date', $request->date)
             ->whereIn('status', ['pending', 'accepted'])
+            ->where(function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('waktu_mulai', '<', $request->waktu_selesai)
+                      ->where('waktu_selesai', '>', $request->waktu_mulai);
+                });
+            })
             ->exists();
 
         if ($exists) {
-            return redirect()->back()->with('error', 'Ruangan sudah dibooking pada tanggal tersebut.');
+            return redirect()->back()->with('error', 'Ruangan sudah dibooking pada waktu tersebut.');
         }
 
         RoomBooking::create([

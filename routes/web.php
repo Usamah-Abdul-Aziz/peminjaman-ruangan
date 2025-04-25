@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\AdminBookingController;
-
+use App\Http\Controllers\CalendarController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/booking', [RoomBookingController::class, 'create'])->name('booking.create');
     Route::post('/booking', [RoomBookingController::class, 'store'])->name('booking.store');
+
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/events', [CalendarController::class, 'events'])->name('calendar.events');
+
 
     Route::middleware(['is_admin'])->group(function () {
         Route::get('/admin/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings.index');

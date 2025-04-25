@@ -21,7 +21,18 @@
 
         <div class="mb-3">
             <label for="date" class="form-label">Tanggal Peminjaman</label>
-            <input type="date" name="date" class="form-control" required>
+            <input type="date" name="date" class="form-control" 
+                   value="{{ request('date') ?? '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="waktu_mulai" class="form-label">Waktu Mulai</label>
+            <input type="time" name="waktu_mulai" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="waktu_selesai" class="form-label">Waktu Selesai</label>
+            <input type="time" name="waktu_selesai" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Ajukan</button>

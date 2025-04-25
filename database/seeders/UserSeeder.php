@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     {
         // Seeder untuk user biasa
         User::create([
-            'name' => 'Ikmal Usama',
+            'name' => 'Ikmal Usamah',
             'email' => 'ikmal.usamah@gmail.com',
             'password' => Hash::make('76517601'),
             'role' => 'user', // pastikan ada kolom 'role' di tabel users
