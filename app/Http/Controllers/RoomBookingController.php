@@ -11,9 +11,11 @@ class RoomBookingController extends Controller
 {
     public function create()
     {
+        $buildings = Room::select('building')->distinct()->pluck('building');
         $rooms = Room::all();
-        return view('bookings.create', compact('rooms'));
+        return view('bookings.create', compact('rooms', 'buildings'));
     }
+
 
     public function store(Request $request)
     {
