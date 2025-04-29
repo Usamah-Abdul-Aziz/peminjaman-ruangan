@@ -5,13 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\CalendarController;
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\RoomController;
+use App\Livewire\RoomTable;
+use App\Livewire\Dashboard;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', Dashboard::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::middleware(['is_admin'])->group(function () {
+        Route::get('/admin/rooms', RoomTable::class)->name('admin.rooms');
         Route::get('/admin/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings.index');
         Route::post('/admin/bookings/{id}/approve', [AdminBookingController::class, 'approve'])->name('admin.bookings.approve');
         Route::post('/admin/bookings/{id}/reject', [AdminBookingController::class, 'reject'])->name('admin.bookings.reject');
