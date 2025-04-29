@@ -6,7 +6,6 @@ use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RoomController;
-use App\Livewire\RoomComponent;
 use App\Livewire\RoomTable;
 use App\Livewire\Dashboard;
 
