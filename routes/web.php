@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/booking', [RoomBookingController::class, 'create'])->name('booking.create');
+    Route::get('/rooms/{id}/details', [RoomBookingController::class, 'getRoomDetails'])->middleware('auth');
     Route::post('/booking', [RoomBookingController::class, 'store'])->name('booking.store');
 
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
