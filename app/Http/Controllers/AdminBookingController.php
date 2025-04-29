@@ -7,11 +7,25 @@ use Illuminate\Http\Request;
 
 class AdminBookingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pendingBookings = RoomBooking::with(['user', 'room'])->where('status', 'pending')->get();
+        $query = RoomBooking::with(['user', 'room'])->where('status', 'pending');
+        
+        if ($request->filled('search')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
+        }
+        
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+
+        $pendingBookings = $query->get();
+
         return view('admin.bookings.index', compact('pendingBookings'));
     }
+
 
     public function approve($id)
     {

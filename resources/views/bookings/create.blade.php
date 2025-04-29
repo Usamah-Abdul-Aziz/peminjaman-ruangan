@@ -27,16 +27,24 @@
                 <option value="">-- Pilih Ruangan --</option>
                 @foreach($rooms as $room)
                     <option value="{{ $room->id }}" data-building="{{ $room->building }}">
-                        {{ $room->name }} (Kapasitas: {{ $room->capacity }})
+                        {{ $room->name }} 
                     </option>
                 @endforeach
             </select>
         </div>
 
+        <div id="room-info" class="mt-4 hidden border p-4 rounded bg-gray-100">
+            <h4 class="text-lg font-semibold mb-2">Informasi Ruangan</h4>
+            <p><strong>Deskripsi:</strong> <span id="room-description">-</span></p>
+            <p><strong>Kapasitas:</strong> <span id="room-capacity">-</span></p>
+            <p><strong>Fasilitas:</strong> <span id="room-facilities">-</span></p>
+        </div>
+
+
         <div class="mb-3">
             <label for="date" class="form-label">Tanggal Peminjaman</label>
-            <input type="date" name="date" class="form-control" value="{{ request('date') ?? '' }}" required>
-        </div>
+            <input type="date" name="date" value="{{ request('date') }}" class="form-control" required>
+            </div>
 
         <div class="mb-3">
             <label for="waktu_mulai" class="form-label">Waktu Mulai</label>
@@ -58,11 +66,33 @@
         let roomOptions = document.querySelectorAll('#room-select option');
 
         roomOptions.forEach(option => {
-            if (!option.dataset.building) return; // skip default option
+            if (!option.dataset.building) return;
             option.hidden = option.dataset.building !== building;
         });
 
-        document.getElementById('room-select').value = ''; // reset room select
+        document.getElementById('room-select').value = '';
+        document.getElementById('room-info').classList.add('hidden');
+    });
+
+    document.getElementById('room-select').addEventListener('change', function () {
+        let roomId = this.value;
+        if (!roomId) {
+            document.getElementById('room-info').classList.add('hidden');
+            return;
+        }
+
+        fetch(`/rooms/${roomId}/details`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('room-description').innerText = data.description || '-';
+                document.getElementById('room-capacity').innerText = data.capacity || '-';
+                document.getElementById('room-facilities').innerText = data.facilities || '-';
+                document.getElementById('room-info').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Gagal memuat data ruangan', error);
+                document.getElementById('room-info').classList.add('hidden');
+            });
     });
 </script>
 @endsection

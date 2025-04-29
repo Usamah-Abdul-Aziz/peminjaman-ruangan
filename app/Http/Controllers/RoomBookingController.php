@@ -16,6 +16,17 @@ class RoomBookingController extends Controller
         return view('bookings.create', compact('rooms', 'buildings'));
     }
 
+    // Tambah di RoomBookingController.php
+    public function getRoomDetails($id)
+    {
+        $room = \App\Models\Room::findOrFail($id);
+        return response()->json([
+            'description' => $room->description,
+            'capacity' => $room->capacity,
+            'facilities' => $room->facilities,
+        ]);
+    }
+
 
     public function store(Request $request)
     {
