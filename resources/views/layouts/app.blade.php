@@ -40,8 +40,9 @@
     </div>
 
         {{ $slot }}
+        {{-- {{ $slot }} --}}
     <!-- Scripts tambahan -->
     @stack('scripts')
     @livewireScripts
 </body>
-</html>
+</html></html>

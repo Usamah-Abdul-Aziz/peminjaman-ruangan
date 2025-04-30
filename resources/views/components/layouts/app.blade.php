@@ -14,10 +14,11 @@
 <body>
     @include('layouts.navigation')
     
+
     {{ $slot }}
 
     <x-toaster-hub />
     @livewireScripts
     @livewire('wire-elements-modal')
 </body>
-</html>
+</html></html>
