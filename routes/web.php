@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomBookingController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\RoomController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -15,9 +16,8 @@ Route::get('/dashboard', function () {
 
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/edit', function () {
-        return 'Edit profile page';
-    })->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/booking', [RoomBookingController::class, 'create'])->name('booking.create');
