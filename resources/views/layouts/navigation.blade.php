@@ -4,7 +4,6 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-<<<<<<< HEAD
                 {{-- <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">                    </a>
                 </div> --}}

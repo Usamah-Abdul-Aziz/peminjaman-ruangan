@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Livewire\RoomTable;
 use App\Livewire\Dashboard;
 use App\Livewire\CreateBooking;
