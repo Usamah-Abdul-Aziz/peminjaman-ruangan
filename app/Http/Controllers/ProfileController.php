@@ -26,17 +26,30 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $data = $request->validated();
+
+        // Cek apakah user mengunggah foto profil
+        if ($request->hasFile('profile_photo')) {
+            $file = $request->file('profile_photo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('profile_photos'), $filename);
+            $data['profile_photo'] = 'profile_photos/' . $filename;
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            $request->user()->profile_photo = $path;
         }
 
-        $request->user()->save();
+        // Reset email_verified_at jika email berubah
+        if ($user->email !== $data['email']) {
+            $user->email_verified_at = null;
+        }
+
+        $user->fill($data);
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
     /**
      * Delete the user's account.
      */
@@ -56,5 +69,16 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'profile_photo' => ['nullable', 'image', 'max:2048'],
+        ];
     }
 }

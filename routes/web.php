@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Livewire\RoomTable;
 use App\Livewire\Dashboard;
 use App\Livewire\CreateBooking;
@@ -23,9 +24,8 @@ Route::get('/virtual-tour', App\Livewire\VirtualTour::class)
 
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/edit', function () {
-        return 'Edit profile page';
-    })->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/booking', CreateBooking::class)->name('booking.create');
 
