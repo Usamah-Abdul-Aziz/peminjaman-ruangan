@@ -5,6 +5,9 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Room;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
+
+#[Title('Manage Rooms')]
 
 class RoomTable extends Component
 {
