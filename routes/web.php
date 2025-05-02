@@ -17,6 +17,10 @@ Route::get('/dashboard', Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/virtual-tour', App\Livewire\VirtualTour::class)
+    ->middleware(['auth', 'verified'])
+    ->name('virtual-tour');
+
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', function () {

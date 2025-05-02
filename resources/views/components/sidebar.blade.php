@@ -70,7 +70,7 @@
       </a>
 
       <!-- Virtual Tour -->
-      <a href=""
+      <a href="{{ route('virtual-tour') }}"
         class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors duration-200 {{ request()->routeIs('virtual-tour') ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-100' }}"
         :class="!isOpen ? 'justify-center' : ''">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
