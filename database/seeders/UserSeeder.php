@@ -32,5 +32,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('kuliahbang321'),
             'role' => 'admin',
         ]);
+
+        User::updateOrCreate([
+            'name' => 'Ghiffari Alfian',
+            'email' => 'ghiffarialfian@gmail.com',
+            'password' => Hash::make('wkwkkuliah321'),
+            'role' => 'user',
+        ]);
     }
 }

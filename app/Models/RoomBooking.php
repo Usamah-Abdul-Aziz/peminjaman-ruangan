@@ -6,7 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomBooking extends Model
 {
-    protected $fillable = ['user_id', 'room_id', 'date', 'status'];
+    protected $fillable = [
+        'user_id', 
+        'room_id', 
+        'date', 
+        'waktu_mulai',
+        'waktu_selesai',
+        'status'
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'waktu_mulai' => 'datetime',
+        'waktu_selesai' => 'datetime'
+    ];
 
     public function user()
     {
