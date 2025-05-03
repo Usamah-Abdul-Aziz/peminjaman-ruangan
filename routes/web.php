@@ -2,39 +2,43 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RoomBookingController;
-use App\Http\Controllers\AdminBookingController;
-use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\RoomController;
 use App\Livewire\RoomTable;
 use App\Livewire\Dashboard;
+use App\Livewire\CreateBooking;
+use App\Livewire\Admin\AdminBookingList;
+use App\Livewire\Profile\Edit;
+use App\Livewire\Calendar;
+use App\Livewire\MyBookings;
+use App\Livewire\VirtualTour;
 
-Route::get('/', Dashboard::class)
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/virtual-tour', VirtualTour::class)
+    ->middleware(['auth', 'verified'])
+    ->name('virtual-tour');
+
 // routes/web.php
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/edit', function () {
-        return 'Edit profile page';
-    })->name('profile.edit');
+    Route::get('/profile', Edit::class)->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('/rooms', [RoomController::class, 'index']);
-    Route::get('/booking', [RoomBookingController::class, 'create'])->name('booking.create');
-    Route::get('/rooms/{id}/details', [RoomBookingController::class, 'getRoomDetails'])->middleware('auth');
-    Route::post('/booking', [RoomBookingController::class, 'store'])->name('booking.store');
+    Route::get('/booking', CreateBooking::class)->name('booking.create');
 
-    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
-    Route::get('/calendar/events', [CalendarController::class, 'events'])->name('calendar.events');
+    Route::get('/calendar', Calendar::class)->name('calendar.index');
 
+    Route::get('/mybookings', MyBookings::class)->name('mybookings');
 
+    // Admin
     Route::middleware(['is_admin'])->group(function () {
         Route::get('/admin/rooms', RoomTable::class)->name('admin.rooms');
-        Route::get('/admin/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings.index');
-        Route::post('/admin/bookings/{id}/approve', [AdminBookingController::class, 'approve'])->name('admin.bookings.approve');
-        Route::post('/admin/bookings/{id}/reject', [AdminBookingController::class, 'reject'])->name('admin.bookings.reject');
-        Route::post('/admin/bookings/{id}/cancel', [AdminBookingController::class, 'cancel'])->name('admin.bookings.cancel');
+        Route::get('/admin/bookings', AdminBookingList::class)->name('admin.bookings.index');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

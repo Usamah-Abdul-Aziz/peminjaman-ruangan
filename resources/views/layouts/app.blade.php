@@ -19,8 +19,13 @@
     @livewireStyles
 </head>
 <body class="font-sans antialiased bg-gradient-to-br from-blue-50 via-white to-purple-100 min-h-screen text-gray-800">
-    <div class="min-h-screen flex flex-col">
-        @include('layouts.navigation')
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <x-sidebar />
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            @include('layouts.navigation')
 
         <!-- Header jika mau tambah judul halaman -->
         @hasSection('header')
@@ -32,11 +37,12 @@
         @endif
 
         <!-- Main Content -->
-        <main class="flex-1">
-            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <main class="flex-1 overflow-x-hidden">
+            <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 @yield('content')
             </div>
         </main>
+        </div>
     </div>
 
         {{-- {{ $slot }} --}}

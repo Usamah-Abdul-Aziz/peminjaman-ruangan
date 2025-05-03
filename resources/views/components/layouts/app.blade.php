@@ -9,15 +9,28 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
+    @stack('styles')
     @livewireStyles
 </head>
-<body>
-    @include('layouts.navigation')
-
-    {{ $slot }}
+<body class="font-sans antialiased bg-gradient-to-br from-blue-50 via-white to-purple-100">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <x-sidebar />
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            @include('layouts.navigation')
+            
+            <!-- Page Content -->
+            <main class="flex-1">
+                {{ $slot }}
+            </main>
+        </div>
+    </div>
 
     <x-toaster-hub />
     @livewireScripts
+    @stack('scripts')
     @livewire('wire-elements-modal')
 </body>
 </html>
