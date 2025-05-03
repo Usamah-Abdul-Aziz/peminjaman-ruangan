@@ -14,7 +14,7 @@
   <!-- Logo -->
   <div class="flex items-center justify-center h-16 border-b">
     <img src="{{ asset('images/logo-untirta.png') }}" alt="Logo" class="h-10 w-10">
-    <span x-show="isOpen" x-transition:enter="transition-opacity duration-300" class="ml-3 font-semibold text-gray-800">TanpaNama</span>
+    <span x-show="isOpen" x-transition:enter="transition-opacity duration-300" class="ml-3 font-semibold text-gray-800">SIPIR</span>
   </div>
 
   <!-- Navigation -->
